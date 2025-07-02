@@ -76,7 +76,7 @@ export const getBorrowedBooks = async (req, res) => {
 
   try {
     const result = await pool.query(
-      `SELECT bb.id, b.title, b.author, bb.borrow_date
+      `SELECT bb.id,bb.book_id, b.title, b.author, bb.borrow_date
        FROM borrowed_books bb
        JOIN books b ON b.id = bb.book_id
        WHERE bb.user_id = $1 AND bb.return_date IS NULL
