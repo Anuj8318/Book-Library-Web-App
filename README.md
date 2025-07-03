@@ -11,7 +11,7 @@ Admins can perform full CRUD operations on books, while users can **borrow and r
 - **Backend**: Node.js, Express.js
 - **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens)
-- **Deployment**: Vercel (frontend), Render (backend) — optional
+- **Deployment**: Vercel (frontend), Render (backend)
 - **Video Recording**: Loom
 
 ---
@@ -41,7 +41,12 @@ Admins can perform full CRUD operations on books, while users can **borrow and r
 🎥 Watch here: [Click to View Demo](https://www.loom.com/share/d71c12c86144498ea5a37da2d279064c?sid=734e5bdd-e279-4976-bc60-32e57b55ccf4)
 
 ---
+---
+## 🌐 Live Application
 
+- Frontend (Vercel): [https://book-library-web-app...vercel.app](https://book-library-web-app-git-main-anuj-singhs-projects-965c3763.vercel.app)
+- Backend (Render): [https://your-backend.onrender.com]((https://book-library-web-app.onrender.com/))
+---
 ## 🗃️ Project Structure
 book-library-app/
 ├── client/ → React frontend
