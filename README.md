@@ -76,16 +76,16 @@ npm start
 ```
 
 ## 🧪 API Overview
-Method	Route	Access	Description
-POST	/api/auth/register	Public	Register user/admin
-POST	/api/auth/login	Public	Login + JWT token
-GET	/api/books	All	View all books
-POST	/api/books	Admin	Add new book
-PUT	/api/books/:id	Admin	Update book
-DELETE	/api/books/:id	Admin	Delete book
-POST	/api/borrow/:bookId	User	Borrow a book
-POST	/api/return/:bookId	User	Return a borrowed book
-GET	/api/borrowed	User	View currently borrowed
+-  Method	Route	Access	Description
+-  POST	/api/auth/register	Public	Register user/admin
+-  POST	/api/auth/login	Public	Login + JWT token
+-  GET	/api/books	All	View all books
+-  POST	/api/books	Admin	Add new book
+-  PUT	/api/books/:id	Admin	Update book
+-  DELETE	/api/books/:id	Admin	Delete book
+-  POST	/api/borrow/:bookId	User	Borrow a book
+-  POST	/api/return/:bookId	User	Return a borrowed book
+-  GET	/api/borrowed	User	View currently borrowed
 
 
 
