@@ -96,29 +96,29 @@ npm start
 
 
 ## 🗃️ Database Schema
-🔸 users
--Column	Type
--id	SERIAL PRIMARY KEY
--name	TEXT
--email	TEXT UNIQUE
--password	TEXT
--role	TEXT ('admin' or 'user')
+-🔸 users
+  Column	Type
+  id	SERIAL PRIMARY KEY
+  name	TEXT
+  email	TEXT UNIQUE
+  password	TEXT
+  role	TEXT ('admin' or 'user')
 
-🔸 books
--Column	Type
--id	SERIAL
--title	TEXT
--author	TEXT
--genre	TEXT
--total_copies	INTEGER
+-🔸 books
+  Column	Type
+  id	SERIAL
+  title	TEXT
+  author	TEXT
+  genre	TEXT
+  total_copies	INTEGER
 
-🔸 borrowed_books
--Column	Type
--id	SERIAL
--user_id	INTEGER REFERENCES users(id)
--book_id	INTEGER REFERENCES books(id)
--borrow_date	TIMESTAMP
--return_date	TIMESTAMP
+-🔸 borrowed_books
+  Column	Type
+  id	SERIAL
+  user_id	INTEGER REFERENCES users(id)
+  book_id	INTEGER REFERENCES books(id)
+  borrow_date	TIMESTAMP
+  return_date	TIMESTAMP
 
 ## 🎨 UI Highlights
 -  Responsive and mobile-friendly design
