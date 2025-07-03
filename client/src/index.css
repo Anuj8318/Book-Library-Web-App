@@ -4,10 +4,9 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f2f4f8;
   color: #333;
-  
 }
 
-h2, h3 {
+h1, h2, h3 {
   text-align: center;
 }
 
@@ -27,17 +26,22 @@ nav {
   flex-wrap: wrap;
 }
 
-nav a {
+nav .logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.nav-links a {
   margin: 0 10px;
   font-weight: 500;
   color: white;
 }
 
-nav a:hover {
+.nav-links a:hover {
   text-decoration: underline;
 }
 
-nav button {
+.nav-links button {
   background-color: white;
   color: #007bff;
   border: none;
@@ -45,10 +49,12 @@ nav button {
   border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-nav button:hover {
-  background-color: #e2e6ea;
+.nav-links button:hover {
+  background-color: #e8f0fe;
+  color: #0056b3;
 }
 
 /* ---------- Container ---------- */
@@ -58,7 +64,7 @@ nav button:hover {
   background: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ---------- Form Styling ---------- */
@@ -81,6 +87,7 @@ form button {
   border-radius: 6px;
   margin-top: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 form button:hover {
@@ -112,6 +119,7 @@ li button {
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+  transition: background-color 0.3s ease;
 }
 
 li button:hover {
