@@ -97,28 +97,28 @@ npm start
 
 ## 🗃️ Database Schema
 🔸 users
-Column	Type
-id	SERIAL PRIMARY KEY
-name	TEXT
-email	TEXT UNIQUE
-password	TEXT
-role	TEXT ('admin' or 'user')
+-Column	Type
+-id	SERIAL PRIMARY KEY
+-name	TEXT
+-email	TEXT UNIQUE
+-password	TEXT
+-role	TEXT ('admin' or 'user')
 
 🔸 books
-Column	Type
-id	SERIAL
-title	TEXT
-author	TEXT
-genre	TEXT
-total_copies	INTEGER
+-Column	Type
+-id	SERIAL
+-title	TEXT
+-author	TEXT
+-genre	TEXT
+-total_copies	INTEGER
 
 🔸 borrowed_books
-Column	Type
-id	SERIAL
-user_id	INTEGER REFERENCES users(id)
-book_id	INTEGER REFERENCES books(id)
-borrow_date	TIMESTAMP
-return_date	TIMESTAMP
+-Column	Type
+-id	SERIAL
+-user_id	INTEGER REFERENCES users(id)
+-book_id	INTEGER REFERENCES books(id)
+-borrow_date	TIMESTAMP
+-return_date	TIMESTAMP
 
 ## 🎨 UI Highlights
 -  Responsive and mobile-friendly design
@@ -130,9 +130,9 @@ Anuj Singh
 📧 anujsingh00028@email.com
 
 ## ✅ Submission Notes
-✅ All code is original and written from scratch
-✅ Video demo recorded using Loom
-✅ Fully working end-to-end app with proper role handling and validations
+-  ✅ All code is original and written from scratch
+-  ✅ Video demo recorded using Loom
+-  ✅ Fully working end-to-end app with proper role handling and validations
 
 
 Feel free to test as both admin and user roles to see how the system adapts!
