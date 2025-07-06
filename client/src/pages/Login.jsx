@@ -1,39 +1,87 @@
-// src/pages/Login.js
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import api from "../api/axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [form, setForm] = useState({ email: "", password: "" });
 
-  const loginHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-
-      // Store token + user
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-
-      // Redirect based on role
-      window.location.href = res.data.user.role === 'admin' ? '/admin' : '/user';
-    } catch (err) {
-      alert(err.response.data.message);
-    }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+const navigate = useNavigate();
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await api.post("/auth/login", form);
+    const { token, user } = res.data;
+
+    // Save to localStorage
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    toast.success("Login successful!");
+
+    // Redirect based on role
+    if (user.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/user");
+    }
+
+  } catch (err) {
+    console.error(err);
+    toast.error(err.response?.data?.message || "Login failed.");
+  }
+};
+
+
   return (
-    <div className="container">
-      <h2>Login</h2>
-      <form onSubmit={loginHandler}>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-        <br />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-        <br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+      <Navbar />
+      <div className="flex justify-center items-center pt-28 px-4">
+        <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">Login to Your Account</h2>
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="w-full mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="w-full mb-6 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          >
+            Login
+          </button>
+
+          <p className="mt-4 text-sm text-center text-gray-600">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-blue-600 font-medium hover:underline">
+              Register here
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

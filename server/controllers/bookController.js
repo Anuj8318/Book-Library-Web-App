@@ -21,17 +21,17 @@ export const getAllBooks = async (req, res) => {
 
 //  POST - Add a book
 export const createBook = async (req, res) => {
-  const { title, author, genre, total_copies } = req.body;
+  const { title, author, genre, total_copies,cover_url } = req.body;
 
-  if (!title || !author || !total_copies) {
+  if (!title || !author|| !genre || !total_copies) {
     return res.status(400).json({ message: 'Required fields missing' });
   }
 
   try {
     const result = await pool.query(
-      `INSERT INTO books (title, author, genre, total_copies)
-       VALUES ($1, $2, $3, $4) RETURNING *`,
-      [title, author, genre, total_copies]
+      `INSERT INTO books (title, author, genre, total_copies, cover_url)
+       VALUES ($1, $2, $3, $4,$5) RETURNING *`,
+      [title, author, genre, total_copies,cover_url]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -43,15 +43,16 @@ export const createBook = async (req, res) => {
 //  PUT - Update a book
 export const updateBook = async (req, res) => {
   const bookId = req.params.id;
-  const { title, author, genre, total_copies } = req.body;
+  const { title, author, genre, total_copies, cover_url } = req.body;
 
   try {
     const result = await pool.query(
       `UPDATE books
-       SET title = $1, author = $2, genre = $3, total_copies = $4
-       WHERE id = $5 RETURNING *`,
-      [title, author, genre, total_copies, bookId]
+       SET title = $1, author = $2, genre = $3, total_copies = $4, cover_url = $5
+       WHERE id = $6 RETURNING *`,
+      [title, author, genre, total_copies, cover_url, bookId]
     );
+
     res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
@@ -70,4 +71,11 @@ export const deleteBook = async (req, res) => {
     console.error(err);
     res.status(500).json({ message: 'Error deleting book' });
   }
+};
+
+export const uploadBookCover = (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+  res.json({ filePath: `/uploads/${req.file.filename}` });
 };

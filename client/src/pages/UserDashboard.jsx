@@ -1,46 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { getBooks, borrowBook } from "../api/book";
+import { toast } from "react-toastify";
+
 
 const UserDashboard = () => {
   const [books, setBooks] = useState([]);
-  const token = localStorage.getItem('token');
 
   const fetchBooks = async () => {
-    const res = await axios.get('http://localhost:5000/api/books', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    setBooks(res.data);
+    try {
+      const res = await getBooks();
+      setBooks(res.data);
+    } catch {
+      toast.error("Failed to load books.");
+    }
   };
+
+
 
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  const handleBorrow = async (bookId) => {
+  const handleBorrow = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/borrow/${bookId}`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      alert('Book borrowed!');
+      await borrowBook(id);
+      toast.success("Book borrowed!");
       fetchBooks();
     } catch (err) {
-      alert(err.response.data.message);
+      toast.error(err.response?.data?.message || "Borrow failed");
     }
   };
 
   return (
-    <div>
-      <h2>Available Books</h2>
-      <ul>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold text-blue-600 mb-4">Browse & Borrow Books</h1>
+       
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {books.map((book) => (
-          <li key={book.id}>
-            <b>{book.title}</b> by {book.author} — {book.available_copies} available
-            {book.available_copies > 0 && (
-              <button onClick={() => handleBorrow(book.id)}>Borrow</button>
-            )}
-          </li>
+          <div key={book.id} className="bg-white shadow-md p-4 rounded-lg flex flex-col justify-between">
+            <div>
+              <h2 className="text-xl font-bold">{book.title}</h2>
+              <p className="text-gray-500">{book.author}</p>
+              <p className="text-sm text-gray-600">Available: {book.available_copies}</p>
+            </div>
+            <button
+              onClick={() => handleBorrow(book.id)}
+              disabled={book.available_copies <= 0}
+              className={`mt-4 py-2 px-4 rounded ${
+                book.available_copies <= 0
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
+              }`}
+            >
+              {book.available_copies > 0 ? "Borrow" : "Unavailable"}
+            </button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
