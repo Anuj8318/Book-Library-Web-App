@@ -7,6 +7,7 @@ import bookRoutes from "./routes/books.js";
 import borrowRoutes from "./routes/borrow.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import uploadRoutes from "./routes/upload.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -26,6 +27,7 @@ app.use("/api/books", bookRoutes);
 app.use("/api", borrowRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/reviews", reviewRoutes);
 // app.use("/uploads", express.static("uploads")); // serve images
 
 app.get("/api/test-db", async (req, res) => {
