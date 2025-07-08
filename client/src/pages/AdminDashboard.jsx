@@ -88,12 +88,17 @@ const handleFileUpload = async (e) => {
   const token = localStorage.getItem("token");
 
   try {
-    const res = await axios.post("http://localhost:5000/api/books/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`, // ✅ send token
-      },
-    });
+    const res = await axios.post(
+  `http://localhost:5000/api/books/upload`,
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
 
     const { filePath } = res.data;
     console.log("Uploaded cover URL:", filePath);
